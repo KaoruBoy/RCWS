@@ -32,22 +32,32 @@ jobs:
       - name: Prepare Package
         run: |
           packagePath="Packages/${{ env.packageName }}"
-          releasePath="release/${packagePath}"
-          mkdir -p "$releasePath"
-          cp -R "$packagePath/." "$releasePath/"
+          mkdir -p "$packagePath"
+
+          while IFS= read -r metaFile; do
+            relativePath="${metaFile#./}"
+            targetPath="$packagePath/$relativePath"
+            mkdir -p "$(dirname "$targetPath")"
+            cp "$metaFile" "$targetPath"
+
+            assetFile="${metaFile%.meta}"
+            if [ -f "$assetFile" ]; then
+              cp "$assetFile" "${targetPath%.meta}"
+            fi
+          done < <(find . -name '*.meta')
+
           find "$packagePath" -type f -name '*.meta' | sort > metaList
 
       - name: Create Zip
         run: |
-          cd "release/Packages/${{ env.packageName }}"
-          zip -r "$GITHUB_WORKSPACE/${{ env.zipFile }}" .
+          cd "Packages/${{ env.packageName }}"
+          zip -r "${{ env.zipFile }}" "Packages/${{ env.packageName }}"
           
       - name: Create UnityPackage
         uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
         with:
           package-path: ${{ env.unityPackage }}
           include-files: metaList
-        
         
       - name: Make Release
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
