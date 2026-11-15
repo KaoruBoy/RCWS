@@ -38,10 +38,12 @@ jobs:
             relativePath="${metaFile#./}"
             targetPath="$packagePath/$relativePath"
             mkdir -p "$(dirname "$targetPath")"
+            echo Copying "$metaFile" to "$targetPath"
             cp "$metaFile" "$targetPath"
 
             assetFile="${metaFile%.meta}"
             if [ -f "$assetFile" ]; then
+              echo Copying "$assetFile" to "${targetPath%.meta}"
               cp "$assetFile" "${targetPath%.meta}"
             fi
           done < <(find . -name '*.meta')
