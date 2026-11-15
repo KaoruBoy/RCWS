@@ -35,6 +35,7 @@ jobs:
           type: "zip"
           directory: ""
           filename: "${{env.zipFile}}"
+          exclusions: "actions-runner"
           
       - run: find . -name \*.meta >> metaList
           
