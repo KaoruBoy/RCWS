@@ -28,11 +28,19 @@ jobs:
         run: |
           echo "zipFile=${{ env.packageName }}-${{ steps.version.outputs.prop }}".zip >> $GITHUB_ENV
           echo "unityPackage=${{ env.packageName }}-${{ steps.version.outputs.prop }}.unitypackage" >> $GITHUB_ENV
-        
+      
+      - name: Prepare Package
+        run: |
+          packagePath="Packages/${{ env.packageName }}"
+          releasePath="release/${packagePath}"
+          mkdir -p "$releasePath"
+          cp -R "$packagePath/." "$releasePath/"
+          find "$packagePath" -type f -name '*.meta' | sort > metaList
+
       - name: Create Zip
-        run: git archive --format=zip --output="${{ env.zipFile }}" HEAD
-          
-      - run: find . -name \*.meta >> metaList
+        run: |
+          cd "release/Packages/${{ env.packageName }}"
+          zip -r "$GITHUB_WORKSPACE/${{ env.zipFile }}" .
           
       - name: Create UnityPackage
         uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
