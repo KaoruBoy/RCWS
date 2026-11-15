@@ -30,14 +30,7 @@ jobs:
           echo "unityPackage=${{ env.packageName }}-${{ steps.version.outputs.prop }}.unitypackage" >> $GITHUB_ENV
         
       - name: Create Zip
-        uses: thedoctor0/zip-release@09336613be18a8208dfa66bd57efafd9e2685657
-        with:
-          type: "zip"
-          directory: ""
-          filename: "${{env.zipFile}}"
-          exclusions: |
-            "actions-runner/*"
-            ".cargo/*"
+        run: git archive --format=zip --output="${{ env.zipFile }}" HEAD
           
       - run: find . -name \*.meta >> metaList
           
