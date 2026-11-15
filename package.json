@@ -1,0 +1,16 @@
+{
+  "name" : "io.github.kaoruboy.rcws",
+  "displayName" : "RCWS",
+  "version" : "1.0.0",
+  "author": {
+    "name": "KaoruBoy",
+    "email": "kaoruboyvrc@gmail.com"
+  },
+  "unity" : "2019.4",
+  "description" : "vRChat Common Weapon System",
+  "vpmDependencies" : {
+    "com.vrchat.avatars" : ">=3.10.6 <999.0.0-a",
+    "com.vrchat.base" : ">=3.10.6 <999.0.0-a"
+  },
+  "license": "MIT"
+}
