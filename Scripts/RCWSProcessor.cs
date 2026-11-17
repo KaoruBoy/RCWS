@@ -321,7 +321,7 @@ namespace RCWS
         void Merge(VRCAvatarDescriptor avatar, RCWSMergeAnimator merger, Dictionary<string, string> remappedPaths)
         {
             merger.EnsureUniqueString();
-            var uniqueName = merger.name + " " + merger.UniqueString;
+            var uniqueName = merger.UniqueString;
             var parameterPrefix = "RCWS/Unique/" + uniqueName + "/";
 
             ProgressWindow.Log("Remapping dynamics parameters...");
