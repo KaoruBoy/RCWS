@@ -331,7 +331,7 @@ namespace RCWS
 
             MergeParameters(avatar, merger, collisionTagParameterRemaps, parameterPrefix);
             MergeMenus(avatar, merger, parameterPrefix);
-            MergeAnimators(avatar, merger, collisionTagParameterRemaps, parameterPrefix, remappedPaths);
+            MergeAnimators(avatar, merger, collisionTagParameterRemaps, parameterPrefix, remappedPaths, uniqueName);
         }
 
         void MergeMenus(VRCAvatarDescriptor avatar, RCWSMergeAnimator merger, string parameterPrefix)
@@ -443,7 +443,7 @@ namespace RCWS
             ProgressWindow.RenderNow();
         }
 
-        void MergeAnimators(VRCAvatarDescriptor avatar, RCWSMergeAnimator merger, Dictionary<string, string> collisionTagParameterRemaps, string parameterPrefix, Dictionary<string, string> remappedPaths)
+        void MergeAnimators(VRCAvatarDescriptor avatar, RCWSMergeAnimator merger, Dictionary<string, string> collisionTagParameterRemaps, string parameterPrefix, Dictionary<string, string> remappedPaths, string uniqueString)
         {
             if (!merger.Animators.Any()) return;
 
@@ -670,6 +670,10 @@ namespace RCWS
                             ProcessStateMachine(ssm);
                     }
                 }
+
+                // Add layer name prefix
+                foreach(var l in animModel.Layers)
+                    l.Name = uniqueString + " " + l.Name;
 
                 animModel.AddLayersAndParametersTo(avatarAnimator);
             }
