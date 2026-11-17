@@ -31,6 +31,7 @@ namespace RCWS
                 parameters.Add(parameter.name, parameterModel);
             }
 
+            bool isFirst = true;
             foreach (var layer in controller.layers)
             {
                 var layerModel = new AnimatorLayerModel
@@ -38,13 +39,15 @@ namespace RCWS
                     Name = layer.name,
                     AvatarMask = layer.avatarMask,
                     BlendingMode = layer.blendingMode,
-                    DefaultWeight = layer.defaultWeight,
+                    DefaultWeight = isFirst ? 1 : layer.defaultWeight,
                     IKPass = layer.iKPass,
                     SyncedLayerIndex = layer.syncedLayerIndex,
                     SyncedLayerAffectsTiming = layer.syncedLayerAffectsTiming,
                     StateMachine = CaptureStructure(layer.stateMachine, states, stateMachines, parameters)
                 };
                 model.Layers.Add(layerModel);
+
+                isFirst = false;
             }
 
             foreach (var layer in controller.layers)
