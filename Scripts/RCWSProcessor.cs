@@ -79,7 +79,7 @@ namespace RCWS
 
                 var reparenters = avatar.GetComponentsInChildren<RCWSReparent>(true);
                 Dictionary<string, string> remappedPaths = new Dictionary<string, string>();
-                Dictionary<Transform, string> originalPaths = reparenters.ToDictionary(r=>r.transform, r=>AnimationUtility.CalculateTransformPath(r.transform, avatar.transform));
+                Dictionary<Transform, string> originalPaths = reparenters.ToDictionary(r => r.transform, r => AnimationUtility.CalculateTransformPath(r.transform, avatar.transform));
                 if (reparenters.Any())
                 {
                     ProgressWindow.Log("Reparenting objects...");
@@ -100,7 +100,7 @@ namespace RCWS
                     ProgressWindow.RenderNow();
                 }
 
-                foreach(var kv in originalPaths)
+                foreach (var kv in originalPaths)
                     remappedPaths[kv.Value] = AnimationUtility.CalculateTransformPath(kv.Key, avatar.transform);
 
                 var mergers = avatar.GetComponentsInChildren<RCWSMergeAnimator>(true);
@@ -497,12 +497,12 @@ namespace RCWS
                             var curve = AnimationUtility.GetEditorCurve(c, bind);
                             bind.path = pathPrefix + bind.path;
 
-                            if(remappedPaths.ContainsKey(bind.path))
+                            if (remappedPaths.ContainsKey(bind.path))
                                 bind.path = remappedPaths[bind.path];
                             else
                             {
-                                var parent = remappedPaths.Keys.OrderByDescending(k=>k.Length).FirstOrDefault(p=>bind.path.StartsWith(p + "/"));
-                                if(parent != null)
+                                var parent = remappedPaths.Keys.OrderByDescending(k => k.Length).FirstOrDefault(p => bind.path.StartsWith(p + "/"));
+                                if (parent != null)
                                 {
                                     bind.path = remappedPaths[parent] + bind.path.Substring(parent.Length);
                                 }
