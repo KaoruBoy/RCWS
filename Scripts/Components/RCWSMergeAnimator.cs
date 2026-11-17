@@ -33,7 +33,12 @@ public class RCWSMergeAnimator : RCWSComponent
         public VRCAvatarDescriptor.AnimLayerType Layer = VRCAvatarDescriptor.AnimLayerType.FX;
     }
 
-    void Awake()
+    void OnValidate()
+    {
+        EnsureUniqueString();
+    }
+
+    void Reset()
     {
         EnsureUniqueString();
     }
@@ -47,6 +52,8 @@ public class RCWSMergeAnimator : RCWSComponent
         }
 
         var avatar = GetComponentInParent<VRCAvatarDescriptor>();
+        if(avatar == null) return;
+        
         var mergers = avatar.GetComponentsInChildren<RCWSMergeAnimator>().ToList();
         mergers.Remove(this);
 
