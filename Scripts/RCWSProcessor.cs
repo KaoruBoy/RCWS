@@ -520,6 +520,9 @@ namespace RCWS
                                     bind.propertyName = parameterPrefix + bind.propertyName;
                             }
 
+                            if(bind.path.EndsWith("/"))
+                                bind.path = bind.path.Substring(0, bind.path.Length-1);
+
 
                             AnimationUtility.SetEditorCurve(remappedClip, bind, curve);
                         }
