@@ -492,6 +492,9 @@ namespace RCWS
                             legacy = c.legacy,
                             frameRate = c.frameRate
                         };
+                        
+                        // Wow this is ass. Just put everything in one place
+                        AnimationUtility.SetAnimationClipSettings(remappedClip, AnimationUtility.GetAnimationClipSettings(c));
 
                         var bindings = AnimationUtility.GetCurveBindings(c);
                         for (int ai = 0; ai < bindings.Length; ai++)
