@@ -487,7 +487,10 @@ namespace RCWS
 
                         var remappedClip = new AnimationClip()
                         {
-                            name = clipNamePrefix + c.name
+                            name = clipNamePrefix + c.name,
+                            wrapMode = c.wrapMode,
+                            legacy = c.legacy,
+                            frameRate = c.frameRate
                         };
 
                         var bindings = AnimationUtility.GetCurveBindings(c);
