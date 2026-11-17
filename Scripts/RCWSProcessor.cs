@@ -508,6 +508,18 @@ namespace RCWS
                                 }
                             }
 
+                            if (bind.type == typeof(Animator))
+                            {
+                                bind.path = "";
+
+                                var originalName = bind.propertyName;
+                                if (collisionTagParameterRemaps.ContainsKey(bind.propertyName))
+                                    bind.propertyName = collisionTagParameterRemaps[bind.propertyName];
+
+                                if (ShouldParameterBeRemapped(originalName, parameterPrefix))
+                                    bind.propertyName = parameterPrefix + bind.propertyName;
+                            }
+
 
                             AnimationUtility.SetEditorCurve(remappedClip, bind, curve);
                         }
