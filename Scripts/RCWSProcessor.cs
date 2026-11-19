@@ -531,7 +531,7 @@ namespace RCWS
                             legacy = c.legacy,
                             frameRate = c.frameRate
                         };
-                        
+
                         // Wow this is ass. Just put everything in one place
                         AnimationUtility.SetAnimationClipSettings(remappedClip, AnimationUtility.GetAnimationClipSettings(c));
 
@@ -565,8 +565,8 @@ namespace RCWS
                                     bind.propertyName = parameterPrefix + bind.propertyName;
                             }
 
-                            if(bind.path.EndsWith("/"))
-                                bind.path = bind.path.Substring(0, bind.path.Length-1);
+                            if (bind.path.EndsWith("/"))
+                                bind.path = bind.path.Substring(0, bind.path.Length - 1);
 
 
                             AnimationUtility.SetEditorCurve(remappedClip, bind, curve);
@@ -717,7 +717,7 @@ namespace RCWS
                 }
 
                 // Add layer name prefix
-                foreach(var l in animModel.Layers)
+                foreach (var l in animModel.Layers)
                     l.Name = uniqueString + " " + l.Name;
 
                 animModel.AddLayersAndParametersTo(avatarAnimator);
