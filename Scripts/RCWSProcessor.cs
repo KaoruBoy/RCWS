@@ -28,7 +28,7 @@ namespace RCWS
             didRunInPlayMode = false;
         }
 
-        public int callbackOrder => -1025;
+        public int callbackOrder => RCWSPreprocessorRunOrder.Order;
 
         public bool OnPreprocessAvatar(GameObject avatar)
         {
