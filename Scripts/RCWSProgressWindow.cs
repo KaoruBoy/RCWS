@@ -1,11 +1,8 @@
 #if UNITY_EDITOR
 
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;

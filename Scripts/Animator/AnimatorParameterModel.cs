@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace RCWS

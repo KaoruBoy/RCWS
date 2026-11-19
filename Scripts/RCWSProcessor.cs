@@ -11,11 +11,8 @@ using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDKBase;
 using System.Reflection;
 using UnityEditor;
-using System.IO;
 using VRC.SDK3.Dynamics.PhysBone.Components;
 using VRC.SDK3.Dynamics.Contact.Components;
-using System.Diagnostics;
-using Mono.Cecil.Cil;
 
 namespace RCWS
 {

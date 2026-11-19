@@ -1,15 +1,10 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using Codice.Client.BaseCommands.Merge.Xml;
 using UnityEditor.Animations;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
-using VRC.SDKBase.Editor.BuildPipeline;
 
 /// <summary>
 /// See RCWSProcessor.Merge 
