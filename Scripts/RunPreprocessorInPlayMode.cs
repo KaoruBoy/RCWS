@@ -43,18 +43,9 @@ namespace RCWS
 
             // Check if any known package runs the preprocessor on play to avoid double processing
             {
-                var pkgs = UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages();
-
-                string[] packagesThatRunPreprocessorOnPlay = new string[]
+                if (RCWSUtils.IsVRCFuryInstalled || RCWSUtils.IsNDMFInstalled)
                 {
-                        "com.vrcfury.vrcfury",
-                        "nadena.dev.ndmf"
-                };
-
-                var preprocessorPackages = pkgs.Where(p => packagesThatRunPreprocessorOnPlay.Any(pp => p.packageId.StartsWith(pp + "@")));
-                if (preprocessorPackages.Any())
-                {
-                    Debug.Log("Skipping avatar preprocessing. Found package(s) that run the preprocessor on play: " + string.Join(", ", preprocessorPackages.Select(p => p.packageId.Split("@")[0])));
+                    Debug.Log("Skipping avatar preprocessing. VRCFury or NDMF is installed");
                     return;
                 }
             }
