@@ -328,6 +328,7 @@ namespace RCWS
 
             MergeParameters(avatar, merger, collisionTagParameterRemaps, parameterPrefix);
             MergeMenus(avatar, merger, parameterPrefix);
+            SplitMenus(avatar);
             MergeAnimators(avatar, merger, collisionTagParameterRemaps, parameterPrefix, remappedPaths, uniqueName);
         }
 
@@ -392,6 +393,47 @@ namespace RCWS
 
             paramProgress.progressCurrent += 1;
             ProgressWindow.RenderNow();
+        }
+
+        void SplitMenus(VRCAvatarDescriptor avatar)
+        {
+            // Let VRCFury or MA handle it if running before them
+            if (RCWSUtils.IsModularAvatarInstalled && RCWSPreprocessorRunOrder.Order < RCWSPreprocessorRunOrder.CallbackOrderNDMF) return;
+            if (RCWSUtils.IsVRCFuryInstalled && RCWSPreprocessorRunOrder.Order < RCWSPreprocessorRunOrder.CallbackOrderVRCFury) return;
+
+            if (avatar.expressionsMenu == null) return;
+
+            // TODO: allow users to change it?
+            Texture2D nextPageIcon = null;
+            string nextPageName = "Next";
+
+            var rootMenuPath = AssetDatabase.GetAssetPath(avatar.expressionsMenu);
+            SplitMenu(avatar.expressionsMenu);
+
+            void SplitMenu(VRCExpressionsMenu menu)
+            {
+                while (menu.controls.Count > VRCExpressionsMenu.MAX_CONTROLS)
+                {
+                    var nextPage = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
+                    AssetDatabase.AddObjectToAsset(nextPage, rootMenuPath);
+
+                    int keepCount = VRCExpressionsMenu.MAX_CONTROLS - 1;
+                    nextPage.controls.AddRange(menu.controls.Skip(keepCount));
+                    menu.controls.RemoveRange(keepCount,
+                        menu.controls.Count - keepCount
+                    );
+
+                    menu.controls.Add(new VRCExpressionsMenu.Control
+                    {
+                        name = nextPageName,
+                        type = VRCExpressionsMenu.Control.ControlType.SubMenu,
+                        subMenu = nextPage,
+                        icon = nextPageIcon
+                    });
+
+                    menu = nextPage;
+                }
+            }
         }
 
         void MergeParameters(VRCAvatarDescriptor avatar, RCWSMergeAnimator merger, Dictionary<string, string> collisionTagParameterRemaps, string parameterPrefix)
