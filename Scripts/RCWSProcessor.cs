@@ -165,6 +165,7 @@ namespace RCWS
 
             VRCExpressionsMenu CopyMenu(VRCExpressionsMenu srcMenu, VRCExpressionsMenu root = null)
             {
+                if(srcMenu == null) return null;
                 if (copiedMenus.TryGetValue(srcMenu, out var existingMenu))
                     return existingMenu;
 
